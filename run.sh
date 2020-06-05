@@ -46,7 +46,7 @@ run_k8s() {
     CONTAINER_NAME=$(echo ${CONTAINER_IMAGE} | cut -d: -f1)
 
     for YAML_FILE in $( ls ${CONTAINER_NAME}/*.yaml ); do
-      envsubst < ${YAML_FILE} | oc apply -f -
+      envsubst < ${YAML_FILE} | kubectl apply -f -
     done
 
   done
