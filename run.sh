@@ -11,8 +11,9 @@ build_container() {
     docker build -f ${SUBDIR}/Dockerfile -t ${SUBDIR}:${IMAGE_TAG} .
 
     # Push image to registry
-    sudo podman login https://${IMAGE_REGISTRY}
-    sudo podman push ${SUBDIR}:${IMAGE_TAG} ${IMAGE_REGISTRY}/${ORG_NAME}/${SUBDIR}:${IMAGE_TAG}
+    docker login https://${IMAGE_REGISTRY}
+    docker tag ${SUBDIR}:${IMAGE_TAG} ${IMAGE_REGISTRY}/${ORG_NAME}/${SUBDIR}:${IMAGE_TAG}
+    docker push ${IMAGE_REGISTRY}/${ORG_NAME}/${SUBDIR}:${IMAGE_TAG}
   done
 }
 
