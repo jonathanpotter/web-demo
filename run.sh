@@ -8,10 +8,7 @@ export $(egrep -v '^#' .env | xargs) # export vars from .env
 build_container() {
   for SUBDIR in ${SUBDIR_LIST}; do
     # Build the container image
-    sudo buildah bud \
-    -f ${SUBDIR}/Dockerfile \
-    -t ${SUBDIR}:${IMAGE_TAG} \
-    .
+    docker build -f ${SUBDIR}/Dockerfile -t ${SUBDIR}:${IMAGE_TAG} .
 
     # Push image to registry
     sudo podman login https://${IMAGE_REGISTRY}
