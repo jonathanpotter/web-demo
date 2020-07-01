@@ -14,11 +14,17 @@ IMAGE_TAG=[your_image_tag]
 STORAGE_CLASS_NAME=[your_storage_class]
 ```
 
-Authenticate to k8s namespace. Configure a pull secret and update `nginx/deployment.yaml`.
-
-Run the script to build and deploy.
+Authenticate to k8s namespace. Configure a pull secret and update `nginx/deployment.yaml`. Run the script to build and deploy.
 
 ```
+# Auth to docker
+docker login
+
+# Create pull secret in namespace
+kubectl create secret generic read-pull-secret \
+    --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+    --type=kubernetes.io/dockerconfigjson
+
 # Deploys app to K8s
 ./run.sh
 ```
